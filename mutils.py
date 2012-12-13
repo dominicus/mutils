@@ -9,6 +9,8 @@ import os
 import codecs
 import logging
 
+mutopia_base = "MUTOPIA_BASE"
+
 # Load lines formatted as 2-line pairs into a dictionary.
 # Not meant to be exported.
 def _load_line_pairs(lines):
@@ -21,13 +23,21 @@ def _load_line_pairs(lines):
     return d
 
 
-def loadComposers():
-    """ Create a dict collection of the valid mutopia composers
+def getMutopiaBase():
+    """Get the mutopia base environment variable.
     """
     mutop = os.getenv("MUTOPIA_BASE")
     if not mutop:
-        logging.warning('must have MUTOPIA_BASE environment set')
-        return None
+        logger.getLogger("mutils")
+        logger.error('must have MUTOPIA_BASE environment set')
+
+    return mutop
+
+
+def loadComposers():
+    """ Create a dict collection of the valid mutopia composers.
+    """
+    mutop = getMutopiaBase()
 
     compdata = codecs.open(
         os.path.join(mutop, 'datafiles','composers.dat'),
@@ -40,12 +50,9 @@ def loadComposers():
 
 
 def loadInstruments():
-    """ Create a dict collection of the valid mutopia instruments
+    """ Create a dict collection of the valid mutopia instruments.
     """
-    mutop = os.getenv("MUTOPIA_BASE")
-    if not mutop:
-        logging.warning('must have MUTOPIA_BASE environment set')
-        return None
+    mutop = getMutopiaBase()
 
     instrumentData = codecs.open(
         os.path.join(mutop, 'datafiles','instruments.dat'),
@@ -58,12 +65,9 @@ def loadInstruments():
 
 
 def loadStyles():
-    """ Create a dict collection of the valid mutopia styles
+    """ Create a dict collection of the valid mutopia styles.
     """
-    mutop = os.getenv("MUTOPIA_BASE")
-    if not mutop:
-        logging.warning('must have MUTOPIA_BASE environment set')
-        return None
+    mutop = getMutopiaBase()
 
     styleData = codecs.open(
         os.path.join(mutop, 'datafiles','styles.dat'),
