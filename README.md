@@ -6,15 +6,16 @@ platform-independent.
 
 ##Installation
 
-    sudo python setup.py install
+    $ sudo python setup.py install
 
 or, if you don't want it as a system library
 
-    python setup.py install --user
+    $ python setup.py install --user
 
 ##Documentation
 
 Once installed:
 
-     pydoc mutils
+     $ pydoc mutils
 
+Additional tools built against this module can be found in the mutools folder.
